@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TimingManager : MonoBehaviour
 {
@@ -55,24 +56,29 @@ public class TimingManager : MonoBehaviour
                 //조건문 노트에x값이 판정범위 안에 들어와 있는 지 각 x최소값 최대값y 비교
                 if (timingBoxs[x].x <= t_notePosX && t_notePosX <= timingBoxs[x].y)
                 {
+                    //노트 제거
                     //0번째는 퍼팩트
                     //인덱스 0부터 확인하므로 판정순서도 Perfect -> Cool -> Good -> Bad
 
                     boxNoteList[i].GetComponent<Note>().HideNote();
 
+
+                    //해당 노트 인덱스를 이용해서 노트를 빼주는 코드.
+                    boxNoteList.RemoveAt(i);
+
+                    //이펙트 연출
                     //Bad타이밍에는 Effect가 나오지 않게 해주기.
                     //인덱스 0:퍼팩트 1:쿨 2 굿 3베드 이니 -1미만 0:퍼팩트 1:쿨 2 굿 일 때 이펙트재생.
                     if (x < timingBoxs.Length - 1)
                         theEffect.NoteHitEffect();
 
-                    //해당 노트 인덱스를 이용해서 노트를 빼주는 코드.
-                    boxNoteList.RemoveAt(i);
-                    Debug.Log("Hit" + x);
+                    //파라미트 값을 x에게 넘겨주기.
+                    theEffect.JudgementEffect(x);
                     return;
                 }
             }
         }
 
-        Debug.Log("Miss");
+        theEffect.JudgementEffect(timingBoxs.Length);
     }
 }

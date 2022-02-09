@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Note : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class Note : MonoBehaviour
 
     void Start()
     {
-        noteImage = GetComponent<UnityEngine.UI.Image>();
+        noteImage = GetComponent<Image>();
     }
 
    

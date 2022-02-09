@@ -18,9 +18,11 @@ public class NoteManager : MonoBehaviour
 
     //TimingManager theTimingManager 참조할 수 있게 만들어 주기.
     TimingManager theTimingManager;
+    EffectManager theEffectManager;
 
     void Start()
     {
+        theEffectManager = GetComponent<EffectManager>();
         theTimingManager = GetComponent<TimingManager>();
     }
 
@@ -51,14 +53,19 @@ public class NoteManager : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        
         //콜라이더 내에 들어오거나 나가면 발동하는 함수.
         //Note 테그로 된 콜라이더가 감지되면 그 객체를 파괴.
         if (collision.CompareTag("Note"))
         {
+            //노트가 화면 밖으로 나가면 그 구간에 숫자 4(miss)넘겨서 연출되게 하기.
+            theEffectManager.JudgementEffect(4);
             //노트가 파괴되는 순간에도 해당 노트를 List에서 제거.
             theTimingManager.boxNoteList.Remove(collision.gameObject);
 
             Destroy(collision.gameObject);
+
+            
         }
     }
 }
