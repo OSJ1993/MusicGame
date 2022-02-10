@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class EffectManager : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class EffectManager : MonoBehaviour
     [SerializeField] Animator judgementAnimator = null;
 
     //교체할 이미지 변수 선언.
-    [SerializeField] Image judgementImage = null;
+    [SerializeField] UnityEngine.UI.Image judgementImage = null;
 
     //퍼팩트 쿨 굳 베드 담을 이미지 담기(배열).
     [SerializeField] Sprite[] judgementSprite = null;

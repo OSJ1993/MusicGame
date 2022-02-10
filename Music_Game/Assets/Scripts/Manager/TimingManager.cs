@@ -19,11 +19,12 @@ public class TimingManager : MonoBehaviour
 
 
     EffectManager theEffect;
-
+    ScoreManager theScoreManager;
 
     void Start()
     {
         theEffect = FindObjectOfType<EffectManager>();
+        theScoreManager = FindObjectOfType<ScoreManager>();
 
         //타이밍 박스 설정.
         //timingBoxs 별 크기는 timingRect 갯?으로 넣어주기.
@@ -64,6 +65,7 @@ public class TimingManager : MonoBehaviour
 
 
                     //해당 노트 인덱스를 이용해서 노트를 빼주는 코드.
+                   
                     boxNoteList.RemoveAt(i);
 
                     //이펙트 연출
@@ -74,11 +76,17 @@ public class TimingManager : MonoBehaviour
 
                     //파라미트 값을 x에게 넘겨주기.
                     theEffect.JudgementEffect(x);
+
+                    //점수 증가
+                    theScoreManager.IncreasaseScore(x);
+
+
                     return;
                 }
             }
         }
 
+       
         theEffect.JudgementEffect(timingBoxs.Length);
     }
 }
