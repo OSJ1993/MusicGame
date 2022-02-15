@@ -18,10 +18,11 @@ public class NoteManager : MonoBehaviour
     //TimingManager theTimingManager 참조할 수 있게 만들어 주기.
     TimingManager theTimingManager;
     EffectManager theEffectManager;
-
+    ComboManager theComboManager;
     void Start()
     {
         theEffectManager = FindObjectOfType<EffectManager>();
+        theComboManager = FindObjectOfType<ComboManager>();
         theTimingManager = GetComponent<TimingManager>();
     }
 
@@ -39,7 +40,7 @@ public class NoteManager : MonoBehaviour
             t_note.transform.position = tfNoteAppear.position;
             t_note.SetActive(true);
 
-                        
+
 
             //노트가 생성되는 순간 노트List에 해당 노트를 추가.
             theTimingManager.boxNoteList.Add(t_note);
@@ -60,20 +61,28 @@ public class NoteManager : MonoBehaviour
             //Note에 있는 public bool GetNoteFlag()에 enabled true라 Image가 닿으면 그 때만  theEffectManager.JudgementEffect(4);실행.
             //부딛힌 객체의 노트 스크립을 가져와서 GetNoteFlag 함수 호출 true일 때만 연출실행.
             if (collision.GetComponent<Note>().GetNoteFlag())
+            {
 
                 //노트가 화면 밖으로 나가면 그 구간에 숫자 4(miss)넘겨서 연출되게 하기.
                 theEffectManager.JudgementEffect(4);
+
+                //놓쳐서 미스뜨는 구간에 콤보초기화 넣어주기.
+                theComboManager.ResetCombo();
+
+            }
+
+
             //노트가 파괴되는 순간에도 해당 노트를 List에서 제거.
             theTimingManager.boxNoteList.Remove(collision.gameObject);
 
             //노트 이미지 생각해보기. noteImage.enabled가 false로 된 상태.
-            
+
 
             //노트 Queue에 반납시켜주고 비활성화 상태.
             ObjectPool.instnace.noteQueue.Enqueue(collision.gameObject);
             collision.gameObject.SetActive(false);
 
-           
+
 
 
         }

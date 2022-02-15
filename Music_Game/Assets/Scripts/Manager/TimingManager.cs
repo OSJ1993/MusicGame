@@ -20,11 +20,14 @@ public class TimingManager : MonoBehaviour
 
     EffectManager theEffect;
     ScoreManager theScoreManager;
+    ComboManager theComboManager;
+
 
     void Start()
     {
         theEffect = FindObjectOfType<EffectManager>();
         theScoreManager = FindObjectOfType<ScoreManager>();
+        theComboManager = FindObjectOfType<ComboManager>();
 
         //타이밍 박스 설정.
         //timingBoxs 별 크기는 timingRect 갯?으로 넣어주기.
@@ -86,7 +89,9 @@ public class TimingManager : MonoBehaviour
             }
         }
 
-       
+        //콤보 초기화
+        theComboManager.ResetCombo();
+
         theEffect.JudgementEffect(timingBoxs.Length);
     }
 }
