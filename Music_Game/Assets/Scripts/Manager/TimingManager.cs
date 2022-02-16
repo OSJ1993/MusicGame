@@ -45,7 +45,7 @@ public class TimingManager : MonoBehaviour
 
 
     //판정함수.
-    public void CheckTiming()
+    public bool CheckTiming()
     {
         //리스트에 있는 노트들을 확인해서 판정 박스에 있는 노트를 찾아야함.
         for (int i = 0; i < boxNoteList.Count; i++)
@@ -84,7 +84,7 @@ public class TimingManager : MonoBehaviour
                     theScoreManager.IncreasaseScore(x);
 
 
-                    return;
+                    return true;
                 }
             }
         }
@@ -93,5 +93,6 @@ public class TimingManager : MonoBehaviour
         theComboManager.ResetCombo();
 
         theEffect.JudgementEffect(timingBoxs.Length);
+        return false;
     }
 }
